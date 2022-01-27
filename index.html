@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Book Your Stay</title>
+
+    <link rel="icon" type="image/png" href="vrbo-logo.png" />
+
+    <script defer type="text/javascript" src="./submit.js"></script>
+
+  </head>
+  <body>
+
+    <h1>Book Your Stay</h1>
+
+
+    <div id="myDiv">
+      <label for="fname">First name:</label>
+      <input id="fname" name="fname" type="text" placeholder="First Name"></input>
+      <br />
+      <br />
+      <label for="lname">Last name:</label>
+      <input id="lname" name="lname" type="text" placeholder="Last Name"></input>
+      <br />
+      <br />
+      <label for="email">Email:</label>
+      <input id="email" name="email" type="email" placeholder="yourname@example.com"></input>
+      <br />
+      <br />
+      <label for="telnum">Phone Number:</label>
+      <input id="telnum" name="telnum" type="tel" placeholder="+1(234) 555-6789"></input>
+      <br />
+      <br />
+      <label for="startDate">Start Date:</label>
+      <input id="startDate" name="startDate" type="date" placeholder="MM/DD/YYYY"></input>
+      <br />
+      <br />
+      <label for="endDate">End Date:</label>
+      <input id="endDate" name="endDate" type="date" placeholder="MM/DD/YYYY"></input>
+      <br />
+      <br />
+      <label for="checkInTime">Check-In Time (between 3 and 5 P.M.):</label>
+      <input id="checkInTime" name="checkInTime" type="time" placeholder="HH:MM:SS" style="width:92px;"></input>
+      <br />
+      <br />
+      <label for="checkoutTime">Checkout Time (between 10 A.M. and 12 P.M.):</label>
+      <input id="checkoutTime" name="checkoutTime" type="time" placeholder="MM/DD/YYYY"></input>
+      <br />
+      <br />
+      <button onclick='verifyAllData()'>Submit</button>
+      <br />
+      <br />
+      <br />
+      <label for="confNum">Confirmation Number:</label>
+      <input id="confNum" name="confNum" type="text" placeholder="1234-5678"></input>
+      <br />
+      <button onclick='editData()'>Edit Your Stay</button>
+    </div>
+
+  </body>
+</html>

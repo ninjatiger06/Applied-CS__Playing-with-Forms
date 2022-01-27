@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Javascript Demo</title>
+    <meta charset="utf-8"></meta>
+    <script defer src="myScript.js"></script>
+    <style>
+    #myDiv, button {
+      font-size: 150%;
+    }
+    input {
+      font-size: 125%;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="myDiv">
+      <p>
+        <!-- Each label must be matched to an input -->
+        <label for='fname'>First Name:</label>
+        <!-- Good practice: give same name and id for every input -->
+        <input id='fname' name='fname' type='text' onmouseover='myMouseOver()' onmouseout='myMouseOut()'/>
+        <br />
+        <label for='lname'>Last Name:</label>
+        <input id='lname' name='lname' type='text' />
+        <br />
+        <label for='work'>Does this work?</label>
+        <br />
+        <!-- With radio buttons, need different id and name -->
+        <!-- The name field is used for grouping -->
+        Feel the Spirit of Radio?
+        <ul>
+          <li>
+            <label for="spiritYes">Yes</label>
+            <input id='spiritYes' name='spirit' type='radio' value='Yes' />
+          </li>
+          <li>
+            <label for="spiritNo">No</label>
+            <input id='spiritNo' name='spirit' type='radio' value='No' />
+          </li>
+        </ul>
+      </p>
+      <button onclick='myClick()'>I'm a button, click me!</button>
+    </div>
+  </body>
+</html>
