@@ -207,11 +207,14 @@ function saveData() {
   }
 
   if (inputtedConf.length != 0) {
-    console.log("here");
+    checkNum = confNum
     editIndex = null;
     for (i = 0; i < allForms.length; i++) {
-      console.log(allForms.length[i])
-      if (confNum in allForms[i]) {
+      console.log(allForms[i]["confNum"]);
+      console.log(checkNum);
+      console.log(checkNum == allForms[i]["confNum"])
+      if (confNum == allForms[i]["confNum"]) {
+        console.log("here");
         editIndex = i;
       }
     }
