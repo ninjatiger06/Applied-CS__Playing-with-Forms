@@ -151,11 +151,11 @@ function verifyAllData() {
     }
   }
 
-  console.log(dataVerified);
-
-  if (inputtedConf == null) {
+  if (Object.keys(inputtedConf).length == 0) {
     confNum = generateConfCode();
   }
+
+  console.log(dataVerified);
 
   if (dataVerified == true) {saveData();}
 }
@@ -163,7 +163,13 @@ function verifyAllData() {
 function editData() {
   allData = chooseData(inputtedConf.value);
   fname.value = allData['fname'];
-  console.log(fname);
+  lname.value = allData['lname'];
+  email.value = allData['email'];
+  telnum.value = allData['telnum'];
+  startDate.value = allData['startDate'];
+  endDate.value = allData['endDate'];
+  checkInTime.value = allData['checkInTime'];
+  checkoutTime.value = allData['checkoutTime'];
 }
 
 function chooseData(num) {
@@ -193,11 +199,23 @@ function saveData() {
     "lname":lname.value,
     "email":email.value,
     "telnum":telnum.value,
-    "statDate":startDate.value,
+    "startDate":startDate.value,
     "endDate":endDate.value,
     "checkInTime":checkInTime.value,
     "checkoutTime":checkoutTime.value,
     "confNum":confNum
+  }
+
+  if (inputtedConf.length != 0) {
+    console.log("here");
+    editIndex = null;
+    for (i = 0; i < allForms.length; i++) {
+      console.log(allForms.length[i])
+      if (confNum in allForms[i]) {
+        editIndex = i;
+      }
+    }
+    console.log(editIndex);
   }
 
   allForms.push(form_data);
@@ -206,6 +224,21 @@ function saveData() {
   localStorage.setItem("allForms", formJSON);
   console.log(localStorage.getItem("allForms"));
   // location.assign('./success.html'); //alternatively can use location.replace so they can't back out
+}
+
+function success() {
+  allStoredData = readData()
+  recentData = allStoredData[allStoredData.length - 1]
+  console.log(recentData);
+  mainDiv.innerHTML = "\n"; // just making sure it's cleared
+  mainDiv.innerHTML += "<p>Name: " + recentData['fname'] + " " + recentData['lname'] + "</p>\n";
+  mainDiv.innerHTML += "<p>Email: " + recentData['email'] + "</p>\n";
+  mainDiv.innerHTML += "<p>Phone Number: " + recentData['telnum'] + "</p>\n";
+  mainDiv.innerHTML += "<p>Booked Dates: " + recentData['startDate'] + "through" + recentData['endDate'] + "</p>\n";
+  mainDiv.innerHTML += "<p>Check-In Time: " + recentData['checkInTime'] + "</p>\n";
+  mainDiv.innerHTML += "<p>CheckoutTime: " + recentData['checkoutTime'] + "</p>\n";
+  mainDiv.innerHTML += "<p>Confirmation Number: " + recentData['confNum'] + "</p>\n";
+  mainDiv.innerHTML += "<h4> Keep your confirmation number! </h4>\n"
 }
 
 // localStorage.removeItem("allForms");
