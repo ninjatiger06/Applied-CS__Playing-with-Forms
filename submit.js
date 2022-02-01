@@ -1,4 +1,3 @@
-// Note to self: add confirmation code so that you can edit your stay
 function verifyName(name) {
   console.log(name);
   if (name.length < 1) {
@@ -72,13 +71,13 @@ function verifyTelnum(telnum) {
 
 function verifyDate(date, position) {
   if (position == "start") {
-    if (date < Date.now()) {
+    if (date < Date.now()) { // Fix
       console.log("date is less than now");
       return false;
     }
   }
   else if (position == "end") {
-    if (date < startDate.value) {
+    if (date <= startDate.value) {
       console.log("end date is less than start");
       return false;
     }
@@ -88,13 +87,13 @@ function verifyDate(date, position) {
 
 function verifyTime(time, io) {
   if (io == "in") {
-    if (time < "15:00" || time > "17:00") {
+    if (time <= "15:00" || time >= "17:00") {
       console.log("check-in is out of window");
       return false;
     }
   }
   else if (io == "out") {
-    if (time < "10:00" || time > "12:00") {
+    if (time <= "10:00" || time >= "12:00") {
       console.log("checkout is out of window");
       return false;
     }
@@ -151,8 +150,11 @@ function verifyAllData() {
     }
   }
 
-  if (Object.keys(inputtedConf).length == 0) {
+  if (inputtedConf.value.length == 0) {
     confNum = generateConfCode();
+  }
+  else {
+    confNum = inputtedConf.value;
   }
 
   console.log(dataVerified);
@@ -170,6 +172,7 @@ function editData() {
   endDate.value = allData['endDate'];
   checkInTime.value = allData['checkInTime'];
   checkoutTime.value = allData['checkoutTime'];
+  editRecord = true;
 }
 
 function chooseData(num) {
@@ -206,19 +209,21 @@ function saveData() {
     "confNum":confNum
   }
 
-  if (inputtedConf.length != 0) {
-    checkNum = confNum
+  console.log(editRecord);
+  if (editRecord) {
     editIndex = null;
     for (i = 0; i < allForms.length; i++) {
       console.log(allForms[i]["confNum"]);
-      console.log(checkNum);
-      console.log(checkNum == allForms[i]["confNum"])
-      if (confNum == allForms[i]["confNum"]) {
-        console.log("here");
+      console.log(inputtedConf.value == allForms[i]["confNum"])
+      if (inputtedConf.value == allForms[i]["confNum"]) {
         editIndex = i;
+        console.log(editIndex);
+        break;
       }
     }
-    console.log(editIndex);
+    console.log('here');
+    allForms.splice(editIndex, 1);
+    editRecord = false;
   }
 
   allForms.push(form_data);
@@ -226,7 +231,7 @@ function saveData() {
   formJSON = JSON.stringify(allForms);
   localStorage.setItem("allForms", formJSON);
   console.log(localStorage.getItem("allForms"));
-  // location.assign('./success.html'); //alternatively can use location.replace so they can't back out
+  location.assign('./success.html'); //alternatively can use location.replace so they can't back out
 }
 
 function success() {
@@ -237,11 +242,12 @@ function success() {
   mainDiv.innerHTML += "<p>Name: " + recentData['fname'] + " " + recentData['lname'] + "</p>\n";
   mainDiv.innerHTML += "<p>Email: " + recentData['email'] + "</p>\n";
   mainDiv.innerHTML += "<p>Phone Number: " + recentData['telnum'] + "</p>\n";
-  mainDiv.innerHTML += "<p>Booked Dates: " + recentData['startDate'] + "through" + recentData['endDate'] + "</p>\n";
+  mainDiv.innerHTML += "<p>Booked Dates: " + recentData['startDate'] + " through " + recentData['endDate'] + "</p>\n";
   mainDiv.innerHTML += "<p>Check-In Time: " + recentData['checkInTime'] + "</p>\n";
   mainDiv.innerHTML += "<p>CheckoutTime: " + recentData['checkoutTime'] + "</p>\n";
   mainDiv.innerHTML += "<p>Confirmation Number: " + recentData['confNum'] + "</p>\n";
   mainDiv.innerHTML += "<h4> Keep your confirmation number! </h4>\n"
+  mainDiv.innerHTML += "<a href='./index.html'><button>Home</button></a>\n"
 }
 
 // localStorage.removeItem("allForms");
@@ -266,3 +272,5 @@ endDate = document.getElementById("endDate");
 checkInTime = document.getElementById("checkInTime");
 checkoutTime = document.getElementById("checkoutTime");
 inputtedConf = document.getElementById("confNum");
+
+editRecord = false;
